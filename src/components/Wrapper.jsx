@@ -1,5 +1,3 @@
-import "bulma/css/bulma.min.css";
-import "../css/blogs.css";
 import Navbar from "./Navbar";
 import { DataContext } from "../contexts/DataContext";
 import Footer from "./Footer";

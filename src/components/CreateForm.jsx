@@ -1,10 +1,29 @@
 import md_icon from "../assets/md_icon.svg";
+import md_guide from "../assets/md_guide.json";
+import MarkdownIt from "markdown-it";
+import hljs from "highlight.js";
+
 const CreateForm = () => {
+  const md = MarkdownIt({
+    highlight: function (str, lang) {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return '<pre class="hljs"><code>' +
+                 hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
+                 '</code></pre>';
+        } catch (__) {}
+      }
+  
+      return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+    }
+  });
+  const guide = md.render(md_guide.guide);
+  const title = md.render(md_guide.title)
   return (
-    <div className="container is-fluid mt-6">
-      <div className="field">
-        <label className="label">Title</label>
-        <div className="control has-icons-left has-icons-right">
+    <div className="">
+      <div className="">
+        <label className="text-red-600">Title</label>
+        <div className="">
           <input className="input" type="text" placeholder="Text input" />
           <span className="icon is-small is-left">
             <i className="fas fa-feather"></i>
@@ -34,17 +53,18 @@ const CreateForm = () => {
           </div>
         </div>
 
-        <div className="preview is-hidden">
-          <h1 className="title p-1"></h1>
+        <div className="preview">
+          <div className="title p-3" dangerouslySetInnerHTML={{__html:title}}></div>
           <hr />
           <div
-            className="preview"
             style={{
               wordWrap: "break-word",
               hyphens: "auto",
-              padding: "10px",
+              padding: "30px",
             }}
-          ></div>
+          >
+            <div dangerouslySetInnerHTML={{ __html: guide }}></div>
+          </div>
         </div>
 
         <div className="guide"></div>

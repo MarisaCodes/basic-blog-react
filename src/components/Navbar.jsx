@@ -1,6 +1,8 @@
 import { useContext, useRef } from "react";
 import { DataContext } from "../contexts/DataContext";
+import "../css/navbar.css";
 import blog_icon from "../assets/favicon.svg";
+import github from "../assets/github.svg";
 const Navbar = () => {
   const data = useContext(DataContext);
   const user = data.data.user;
@@ -15,81 +17,72 @@ const Navbar = () => {
       : burger_ref.current.classList.add("is-active");
   };
 
+  const navigation = [
+    { name: "Dashboard", href: "#", current: true },
+    { name: "Team", href: "#", current: false },
+    { name: "Projects", href: "#", current: false },
+    { name: "Calendar", href: "#", current: false },
+  ];
+
   return (
     <>
-      <nav
-        className="navbar is-link is-fixed-top"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div className="navbar-brand">
-          <a href="/" className="navbar-item">
-            <img src={blog_icon} alt="basic blog icon" width="40" height="40" />
+      <nav className="bg-slate-800 w-full md:flex fixed lg:px-28">
+        {/* first nav group nav logo etc */}
+        <div className="flex items-center justify-around gap-10">
+        <a className="flex items-center gap-3 p-4 hover:bg-slate-900 transition-colors cursor-pointer w-fit justify-center">
+            <img src={blog_icon} alt="" className="h-8 w-auto" />
+            <h1 className="text-slate-300 text-1xl lg:text-2xl">Basic Blog</h1>
           </a>
 
+          {/* burger for mobile */}
+          <div className="flex flex-col gap-1 bg-slate-500 p-2 rounded-md cursor-pointer bg-opacity-25 md:hidden">
+            <div className="bg-slate-300 h-0.5 w-7"></div>
+            <div className="bg-slate-300 h-0.5 w-7"></div>
+            <div className="bg-slate-300 h-0.5 w-7"></div>
+          </div>
+        </div>
+
+        {/* second nav group */}
+        <div className="items-center gap-2 md:gap-7 pb-3 w-full md:w-fit md:p-3 flex-col md:flex-row justify-around flex">
+          <hr className="h-px mt-0 bg-gray-200 border-0 dark:bg-gray-700 w-full" />
+          <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center">
+            Signup
+          </button>
+          <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center">
+            Login
+          </button>
+          {user === null || (
+            <>
+              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
+                Profile
+              </button>
+              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
+                Create Blogs
+              </button>
+
+              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
+                Your blogs
+              </button>
+              <hr className="h-px mt-1 bg-gray-200 border-0 dark:bg-gray-700 w-full" />
+              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
+                Log out
+              </button>
+            </>
+          )}
+        </div>
+        
+        <div className="grid flex-grow">
           <a
-            role="button"
-            className="navbar-burger"
-            ref={burger_ref}
-            aria-label="menu"
-            aria-expanded="false"
-            onClick={handle_menu}
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-        <div id="menu" className="navbar-menu" ref={menuRef}>
-          <div className="navbar-start">
-            <a href="/" className="navbar-item has-text-centered is-size-5">
-              Basic Blog
+              href="https://github.com/MarisaCodes/basic-blog-react"
+              className="items-center gap-3 p-4 hover:bg-slate-900 transition-colors cursor-pointer justify-center hidden md:flex justify-self-end"
+            >
+              <img src={github} alt="" className="h-8 w-auto" />
+              <h1 className="text-slate-300">GitHube Repo</h1>
             </a>
-            {user === null || (
-              <a
-                href=""
-                className="navbar-item is-flex is-align-items-center is-justify-content-center"
-              >
-                <img
-                  className="mr-1"
-                  src={"data:" + user?.pfp_mime + ";base64," + user?.pfp}
-                  height="200"
-                  style={{ objectFit: "scale-down", borderRadius: "50%" }}
-                  alt="user profile picture"
-                />
-                <span>{user?.username || ""}</span>
-              </a>
-            )}
-          </div>
-
-          <div className="navbar-end has-text-centered">
-            {user === null ? (
-              <div className="navbar-item">
-                <div className="buttons">
-                  <a href="/signup" className="button is-info">
-                    <strong>Sign up</strong>
-                  </a>
-                  <a href="/login" className="button is-light">
-                    Log in
-                  </a>
-                </div>
-              </div>
-            ) : (
-              <>
-                <a href="/create" className="navbar-item">
-                  Create Blog
-                </a>
-                <hr className="navbar-divider" />
-                <a href="" className="navbar-item">
-                  Your Blogs
-                </a>
-              </>
-            )}
-          </div>
         </div>
+        
       </nav>
-      <div style={{ height: "52px" }}></div>
+      <div className="h-20"></div>
     </>
   );
 };

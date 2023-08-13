@@ -6,8 +6,8 @@ const Blogs = () => {
   const data = useContext(DataContext);
   const blogs = data.data?.blogs;
   return (
-    <div className="mt-6">
-      <div className="container is-justify-content-center is-flex is-flex-direction-column blog-wrapper">
+    <div className="">
+      <div className="">
         {blogs.length > 0
           ? blogs.map((blog) => {
               return <BlogCard blog={blog} key={blog.blog_id} />;

@@ -1,4 +1,3 @@
-import "bulma/css/bulma.min.css";
 import { useState, useRef, useContext } from "react";
 
 import { username_input } from "../handlers/username_input";
