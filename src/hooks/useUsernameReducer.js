@@ -5,7 +5,7 @@ export const useUsernameReducer = () => {
     username: "",
     inputClassName: null,
     iconClassName: null,
-    status: null,
+    status: "",
   });
 };
 

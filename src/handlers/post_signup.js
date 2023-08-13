@@ -1,6 +1,7 @@
 export const post_signup = (username, password, pfp, submit_ref, error_ref) => {
   submit_ref.current.classList.add("is-loading");
-  submit_ref.current.setAttribute("disabled", true);
+  submit_ref.current.disabled = true;
+  error_ref.current.classList.add("is-hidden");
   let fetch_options = {
     method: "POST",
     credentials: "include",
@@ -9,6 +10,13 @@ export const post_signup = (username, password, pfp, submit_ref, error_ref) => {
     let formdata = new FormData();
     formdata.append("pfp", pfp);
     Object.assign(fetch_options, { body: formdata });
+    if (!pfp?.type.includes("image")) {
+      error_ref.current.innerHTML = "Invalid image type";
+      submit_ref.current.classList.remove("is-loading");
+      error_ref.current.classList.remove("is-hidden");
+      submit_ref.current.disabled = false;
+      return;
+    }
   }
   let headers = new Headers();
   headers.set("Authorization", "Basic " + btoa(`${username}:${password}`));

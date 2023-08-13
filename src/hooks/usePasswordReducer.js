@@ -5,7 +5,7 @@ export const usePasswordReducer = () => {
     password: "",
     inputClassName: null,
     iconClassName: null,
-    status: null,
+    status: "",
   });
 };
 

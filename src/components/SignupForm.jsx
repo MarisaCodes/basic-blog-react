@@ -18,7 +18,7 @@ const SignupForm = () => {
 
   const submit_ref = useRef(null);
   const error_ref = useRef(null);
-  const disabled = useDisabled(submit_ref, pState.status, uState.status);
+  useDisabled(submit_ref, pState, uState);
 
   return (
     <>
@@ -70,7 +70,10 @@ const SignupForm = () => {
             {pState.status?.length
               ? pState.status.map((status) => {
                   return (
-                    <p className={"help " + (pState.inputClassName || "")}>
+                    <p
+                      className={"help " + (pState.inputClassName || "")}
+                      key={status.message}
+                    >
                       {status.message}
                     </p>
                   );
@@ -99,12 +102,11 @@ const SignupForm = () => {
           </label>
         </div>
 
-        <div className="field is-grouped mt-5 is-grouped-centered">
+        <div className="field container m-6">
           <p className="control">
             <button
-              className={"button " + disabled}
+              className={"button is-link is-fullwidth"}
               ref={submit_ref}
-              disabled
               onClick={() =>
                 post_signup(
                   uState.username,

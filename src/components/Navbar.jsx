@@ -5,10 +5,14 @@ const Navbar = () => {
   const data = useContext(DataContext);
   const user = data.data.user;
   const menuRef = useRef(null);
+  const burger_ref = useRef(null);
   const handle_menu = () => {
     menuRef.current.classList.contains("is-active")
       ? menuRef.current.classList.remove("is-active")
       : menuRef.current.classList.add("is-active");
+    burger_ref.current.classList.contains("is-active")
+      ? burger_ref.current.classList.remove("is-active")
+      : burger_ref.current.classList.add("is-active");
   };
 
   return (
@@ -26,6 +30,7 @@ const Navbar = () => {
           <a
             role="button"
             className="navbar-burger"
+            ref={burger_ref}
             aria-label="menu"
             aria-expanded="false"
             onClick={handle_menu}
@@ -38,45 +43,29 @@ const Navbar = () => {
 
         <div id="menu" className="navbar-menu" ref={menuRef}>
           <div className="navbar-start">
-            <a href="/" className="navbar-item">
-              Basic Blogs
+            <a href="/" className="navbar-item has-text-centered is-size-5">
+              Basic Blog
             </a>
-
-            {user && (
-              <div className="navbar-item has-dropdown is-hoverable">
-                <a className="navbar-link">
-                  <div className="is-flex is-align-items-center">
-                    <img
-                      src={"data:" + user?.pfp_mime + ";base64," + user?.pfp}
-                      width="45"
-                      height="45"
-                      style={{ objectFit: "scale-down" }}
-                      alt=""
-                    />
-
-                    <span>{user?.username || ""}</span>
-                  </div>
-                </a>
-
-                <div className="navbar-dropdown">
-                  <a href="" className="navbar-item">
-                    Profile
-                  </a>
-                  <a href="" className="navbar-item">
-                    Create Blog
-                  </a>
-                  <hr className="navbar-divider" />
-                  <a href="" className="navbar-item">
-                    Your Blogs
-                  </a>
-                </div>
-              </div>
+            {user === null || (
+              <a
+                href=""
+                className="navbar-item is-flex is-align-items-center is-justify-content-center"
+              >
+                <img
+                  className="mr-1"
+                  src={"data:" + user?.pfp_mime + ";base64," + user?.pfp}
+                  height="200"
+                  style={{ objectFit: "scale-down", borderRadius: "50%" }}
+                  alt="user profile picture"
+                />
+                <span>{user?.username || ""}</span>
+              </a>
             )}
           </div>
 
-          <div className="navbar-end">
-            <div className="navbar-item">
-              {user === null && (
+          <div className="navbar-end has-text-centered">
+            {user === null ? (
+              <div className="navbar-item">
                 <div className="buttons">
                   <a href="/signup" className="button is-info">
                     <strong>Sign up</strong>
@@ -85,8 +74,18 @@ const Navbar = () => {
                     Log in
                   </a>
                 </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <>
+                <a href="/create" className="navbar-item">
+                  Create Blog
+                </a>
+                <hr className="navbar-divider" />
+                <a href="" className="navbar-item">
+                  Your Blogs
+                </a>
+              </>
+            )}
           </div>
         </div>
       </nav>

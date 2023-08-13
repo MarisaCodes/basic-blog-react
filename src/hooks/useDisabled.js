@@ -1,23 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
-export const useDisabled = (submit_ref, pError, uStatus) => {
-  const [disabled, setDisabled] = useState(["", "true"]);
-
+export const useDisabled = (submit_ref, pState, uState) => {
   useEffect(() => {
-    if (pError !== null) {
-      if (
-        pError[0]?.message === "Valid password" &&
-        uStatus === "This username is valid"
-      ) {
-        setDisabled("is-link");
-        if (submit_ref.current !== null)
-          submit_ref.current.removeAttribute("disabled");
-      }
+    console.log(pState);
+    if (
+      pState?.status[0]?.message === "Valid password" &&
+      uState?.status === "This username is valid" &&
+      submit_ref?.current
+    ) {
+      submit_ref.current.disabled = false;
     } else {
-      setDisabled("");
-      if (submit_ref.current !== null)
-        submit_ref.current.setAttribute("disabled", "true");
+      submit_ref.current.disabled = true;
     }
-  }, [pError, uStatus]);
-  return disabled;
+  }, [submit_ref, pState, uState]);
 };
