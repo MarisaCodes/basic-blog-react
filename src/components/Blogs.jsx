@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DataContext } from "../contexts/DataContext";
 import BlogCard from "./BlogCard";
-
+import "../css/blogs.css"
 const Blogs = () => {
   const data = useContext(DataContext);
   const blogs = data.data?.blogs;

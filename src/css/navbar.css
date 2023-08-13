@@ -1,5 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
+nav {
+  @apply bg-slate-800 w-full md:flex fixed lg:px-28;
+}
+.navbar-brand {
+  @apply flex items-center gap-3 p-4 hover:bg-slate-900 transition-colors cursor-pointer w-fit justify-center h-full;
+}
+.navbar-h1 {
+  @apply text-slate-300 text-xl;
+}
+.navbar-separator {
+  @apply h-px bg-gray-200 border-0 dark:bg-gray-700 w-full block md:hidden;
+}
+.burger {
+  @apply flex flex-col gap-1 bg-slate-500 p-2 rounded-md cursor-pointer bg-opacity-25 md:hidden border-2;
+}
+.sign-login-btn-group {
+  @apply items-center gap-2 md:gap-7 pb-3 w-full md:w-fit md:p-3 flex-col md:flex-row justify-around;
+}
+.github-repo-link {
+  @apply items-center gap-3 p-4 hover:bg-slate-900 transition-colors cursor-pointer justify-center hidden md:flex w-fit ml-auto;
+}
+.user-in {
+  @apply hover:bg-slate-900 bg-slate-700 bg-opacity-50 md:bg-opacity-100 md:hover:bg-slate-900 md:bg-slate-800 transition-colors py-1 md:py-0 md:px-4 rounded-lg md:rounded-none h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 md:w-fit text-center;
+}
+.user-in-group {
+  @apply flex flex-col py-3 md:py-0 md:px-3 md:h-full md:flex-row gap-3 md:gap-7 w-full md:w-fit items-center ml-auto;
+}
+.logout {
+  @apply hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-1 md:py-2 rounded-lg h-fit text-slate-300 w-9/12 sm:w-6/12 md:w-fit text-center;
+}
+.signup-login {
+  @apply hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center;
+}

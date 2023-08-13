@@ -1,0 +1,6 @@
+h1 {
+  @apply text-4xl text-black font-semibold;
+}
+hr {
+  @apply h-px bg-gray-200 border-0 dark:bg-red-700 w-full block md:hidden;
+}

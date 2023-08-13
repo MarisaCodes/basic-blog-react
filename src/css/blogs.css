@@ -1,4 +1,8 @@
-.blog-wrapper {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* .blog-wrapper {
   gap: 20px !important;
 }
 .pfp {
@@ -35,4 +39,4 @@
     width: 70% !important;
     margin: 0 auto !important;
   }
-}
+} */

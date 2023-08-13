@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { DataContext } from "../contexts/DataContext";
 import "../css/navbar.css";
 import blog_icon from "../assets/favicon.svg";
@@ -8,34 +8,32 @@ const Navbar = () => {
   const user = data.data.user;
   const menuRef = useRef(null);
   const burger_ref = useRef(null);
+
   const handle_menu = () => {
-    menuRef.current.classList.contains("is-active")
-      ? menuRef.current.classList.remove("is-active")
-      : menuRef.current.classList.add("is-active");
-    burger_ref.current.classList.contains("is-active")
-      ? burger_ref.current.classList.remove("is-active")
-      : burger_ref.current.classList.add("is-active");
+    if (menuRef.current?.classList.contains("hidden")) {
+      menuRef.current?.classList.remove("hidden");
+      menuRef.current?.classList.add("flex");
+    } else {
+      menuRef.current?.classList.add("hidden");
+      menuRef.current?.classList.remove("flex");
+    }
+
+    // burger_ref.current.classList.contains("is-active")
+    //   ? burger_ref.current.classList.remove("is-active")
+    //   : burger_ref.current.classList.add("is-active");
   };
-
-  const navigation = [
-    { name: "Dashboard", href: "#", current: true },
-    { name: "Team", href: "#", current: false },
-    { name: "Projects", href: "#", current: false },
-    { name: "Calendar", href: "#", current: false },
-  ];
-
   return (
     <>
-      <nav className="bg-slate-800 w-full md:flex fixed lg:px-28">
+      <nav>
         {/* first nav group nav logo etc */}
         <div className="flex items-center justify-around gap-10">
-        <a className="flex items-center gap-3 p-4 hover:bg-slate-900 transition-colors cursor-pointer w-fit justify-center">
+          <a className="navbar-brand">
             <img src={blog_icon} alt="" className="h-8 w-auto" />
-            <h1 className="text-slate-300 text-1xl lg:text-2xl">Basic Blog</h1>
+            <h1 className="navbar-h1">Basic Blog</h1>
           </a>
 
           {/* burger for mobile */}
-          <div className="flex flex-col gap-1 bg-slate-500 p-2 rounded-md cursor-pointer bg-opacity-25 md:hidden">
+          <div className="burger" ref={burger_ref} onClick={handle_menu}>
             <div className="bg-slate-300 h-0.5 w-7"></div>
             <div className="bg-slate-300 h-0.5 w-7"></div>
             <div className="bg-slate-300 h-0.5 w-7"></div>
@@ -43,44 +41,57 @@ const Navbar = () => {
         </div>
 
         {/* second nav group */}
-        <div className="items-center gap-2 md:gap-7 pb-3 w-full md:w-fit md:p-3 flex-col md:flex-row justify-around flex">
-          <hr className="h-px mt-0 bg-gray-200 border-0 dark:bg-gray-700 w-full" />
-          <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center">
-            Signup
-          </button>
-          <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center">
-            Login
-          </button>
-          {user === null || (
-            <>
-              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
-                Profile
+        {user === null && (
+          // when user is NOT logged in
+          <div
+            className="sign-login-btn-group hidden md:flex"
+            ref={(el) => (user === null ? (menuRef.current = el) : null)}
+          >
+            <hr className="mt-0 navbar-separator" />
+            <button className="signup-login">Signup</button>
+            <button className="signup-login">Login</button>
+          </div>
+        )}
+        {user === null || (
+          // when user IS LOGGED IN
+          <div
+            className="flex-grow"
+            ref={(el) => (user === null ? null : (menuRef.current = el))}
+          >
+            <hr className="mt-0 navbar-separator" />
+            <div className="user-in-group">
+              <button className="user-in flex justify-center items-center gap-2">
+                <img
+                  src="https://static.zerochan.net/Hakurei.Reimu.full.3503126.jpg"
+                  className="rounded-full w-9 aspect-square object-cover"
+                  alt=""
+                />
+                <span>Profile</span>
               </button>
-              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
-                Create Blogs
-              </button>
-
-              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
-                Your blogs
-              </button>
-              <hr className="h-px mt-1 bg-gray-200 border-0 dark:bg-gray-700 w-full" />
-              <button className="hover:bg-slate-900 bg-slate-700 bg-opacity-50 transition-colors px-3 py-2 rounded-lg sm:h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 text-center block md:hidden">
-                Log out
-              </button>
-            </>
-          )}
-        </div>
-        
-        <div className="grid flex-grow">
-          <a
+              <button className="user-in">Create Blogs</button>
+              <button className="user-in">Your blogs</button>
+              <hr className="mt-1 navbar-separator" />
+              <button className="logout">Log out</button>
+            </div>
+          </div>
+        )}
+        {/* third group for github icon */}
+        {/* trick: flex-grow so it can take width remaining */}
+        {/* trick: display grid then justify-self-end on child so it can go to far right side */}
+        {/* <-----parent grid div with flex-grow----------->[element goes end] */}
+        {/* alternative: just use flex-grow */}
+        {/* then on child element do w-fit (width fit) and ml-auto */}
+        {user === null && (
+          <div className="flex-grow">
+            <a
               href="https://github.com/MarisaCodes/basic-blog-react"
-              className="items-center gap-3 p-4 hover:bg-slate-900 transition-colors cursor-pointer justify-center hidden md:flex justify-self-end"
+              className="github-repo-link"
             >
               <img src={github} alt="" className="h-8 w-auto" />
-              <h1 className="text-slate-300">GitHube Repo</h1>
+              <h1 className="navbar-h1">GitHube Repo</h1>
             </a>
-        </div>
-        
+          </div>
+        )}
       </nav>
       <div className="h-20"></div>
     </>
