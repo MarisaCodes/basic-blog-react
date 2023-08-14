@@ -1,8 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* 
 
-/* .blog-wrapper {
+.blog-wrapper {
   gap: 20px !important;
 }
 .pfp {
@@ -40,3 +38,6 @@
     margin: 0 auto !important;
   }
 } */
+.content img {
+  @apply mx-auto rounded-md w-11/12 sm:w-10/12 md:w-7/12 object-scale-down h-fit aspect-video mb-4;
+}

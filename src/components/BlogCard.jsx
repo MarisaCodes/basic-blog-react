@@ -1,48 +1,53 @@
 const BlogCard = ({ blog }) => {
   return (
-    <div className="card">
-      <header className="card-header is-flex-direction-column">
-        <p className="blog-card-title is-size-6-mobile is-size-4-tablet">
-          <strong>{blog.title}</strong>
-        </p>
-      </header>
-      <div className="card-content">
-        <div className="media">
-          <div className="media-left">
-            <figure className="image is-48x48">
-              <img
-                className="is-rounded pfp"
-                src={`data:${blog.pfp_mime};base64,${blog.pfp}`}
-                alt="Placeholder image"
-              />
-            </figure>
+    <div className="card flex flex-col gap-3 w-full bg-gray-800 border border-gray-700 sm:rounded-lg p-2 border-r-0 border-l-0 sm:border-r sm:border-l">
+      <header className="card-header flex-col w-full p-3">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 w-full justify-between pb-5">
+          <span className="text-xs bg-gray-700 p-1 rounded-md w-fit">
+            {new Date().toLocaleString()}
+          </span>
+          <div>
+            <span className="text-xs pr-2 text-gray-500">Last Updated</span>
+            <span className="text-xs bg-sky-800 p-1 rounded-md">
+              {new Date().toLocaleString()}
+            </span>
           </div>
-          <div className="media-content">
-            <p className="title is-4 has-text-info">{blog.username}</p>
-            <p className="subtitle is-6 mb-1">
-              {new Date(blog.created_at).toLocaleString()}
-            </p>
-            <p className="subtitle is-7">
-              <span className="tag is-small is-info mr-1">last updated</span>
-              <span className="tag is-small is-black">
-                {new Date(blog.updated_at).toLocaleString()}
-              </span>
+        </div>
+        <h1 className="blog-card-title text-2xl tracking-tight text-gray-900 dark:text-white w-full break-words hyphens-auto line-clamp-2">
+          {blog.title}
+        </h1>
+      </header>
+      <div>
+        <div className="media flex gap-1 items-center pl-2">
+          <img
+            className="h-14 rounded-full aspect-square object-cover"
+            // src="https://static.zerochan.net/Hakurei.Reimu.full.3503126.jpg"
+            src={`data:${blog.pfp_mime};base64,${blog.pfp}`}
+            alt="user profile"
+          />
+
+          <div className="flex flex-col gap-1">
+            <p className="text-2xl font-semibold ">{blog.username}</p>
+            <p className="text-xs p-1 rounded-md w-fit text-sky-500">
+              {new Date(blog.registered_at).toLocaleDateString()}
             </p>
           </div>
         </div>
-        <div className="content blog-card-content">
-          {blog.about && (
-            <article className="message is-small">
-              <div className="message-body">{blog.about}</div>
-            </article>
-          )}
-          {blog.content}
+        <div className="p-3">
+          <div className="break-words line-clamp-5 hyphens-auto text-md text-gray-500">
+            {blog.about && (
+              <div className="p-2 bg-slate-700 text-gray-300 rounded-md mb-2 text-xs font-semibold w-fit">
+                {blog.about}
+              </div>
+            )}
+            <div className="content pt-4 px-4">
+              {blog.content}
+            </div>
+          </div>
         </div>
       </div>
-      <footer className="card-footer">
-        <button className="button card-footer-item is-info is-radiusless">
-          Read more..
-        </button>
+      <footer className="flex pr-4">
+        <a className="ml-auto cursor-pointer text-blue-600 font-semibold">Read more &#8594;</a>
       </footer>
     </div>
   );

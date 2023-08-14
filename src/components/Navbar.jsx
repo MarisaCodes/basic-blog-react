@@ -8,26 +8,28 @@ const Navbar = () => {
   const user = data.data.user;
   const menuRef = useRef(null);
   const burger_ref = useRef(null);
+  const navRef = useRef(null);
 
   const handle_menu = () => {
     if (menuRef.current?.classList.contains("hidden")) {
       menuRef.current?.classList.remove("hidden");
-      menuRef.current?.classList.add("flex");
     } else {
       menuRef.current?.classList.add("hidden");
-      menuRef.current?.classList.remove("flex");
     }
-
-    // burger_ref.current.classList.contains("is-active")
-    //   ? burger_ref.current.classList.remove("is-active")
-    //   : burger_ref.current.classList.add("is-active");
   };
+  document.addEventListener("click", (e) => {
+    if (
+      !navRef.current?.contains(e.target) &&
+      !menuRef.current?.classList.contains("hidden")
+    )
+      handle_menu();
+  });
   return (
     <>
-      <nav>
+      <nav ref={navRef}>
         {/* first nav group nav logo etc */}
         <div className="flex items-center justify-around gap-10">
-          <a className="navbar-brand">
+          <a href="/" className="navbar-brand">
             <img src={blog_icon} alt="" className="h-8 w-auto" />
             <h1 className="navbar-h1">Basic Blog</h1>
           </a>
@@ -44,34 +46,42 @@ const Navbar = () => {
         {user === null && (
           // when user is NOT logged in
           <div
-            className="sign-login-btn-group hidden md:flex"
+            className="hidden md:flex"
             ref={(el) => (user === null ? (menuRef.current = el) : null)}
           >
-            <hr className="mt-0 navbar-separator" />
-            <button className="signup-login">Signup</button>
-            <button className="signup-login">Login</button>
+            <div className="sign-login-btn-group">
+              <hr className="mt-0 navbar-separator" />
+              <a href="/signup" className="signup-login">
+                Signup
+              </a>
+              <a href="/login" className="signup-login">
+                Login
+              </a>
+              <hr className="mt-1 navbar-separator" />
+            </div>
           </div>
         )}
         {user === null || (
           // when user IS LOGGED IN
           <div
-            className="flex-grow"
+            className="flex-grow hidden md:block"
             ref={(el) => (user === null ? null : (menuRef.current = el))}
           >
             <hr className="mt-0 navbar-separator" />
             <div className="user-in-group">
               <button className="user-in flex justify-center items-center gap-2">
                 <img
-                  src="https://static.zerochan.net/Hakurei.Reimu.full.3503126.jpg"
-                  className="rounded-full w-9 aspect-square object-cover"
+                  src={`data:${user?.pfp_mime};base64,${user?.pfp}`}
+                  className="rounded-full h-10 aspect-square object-cover"
                   alt=""
                 />
-                <span>Profile</span>
+                <span>{user?.username}</span>
               </button>
-              <button className="user-in">Create Blogs</button>
+              <a className="user-in">Create Blogs</a>
               <button className="user-in">Your blogs</button>
               <hr className="mt-1 navbar-separator" />
               <button className="logout">Log out</button>
+              <hr className="mt-1 navbar-separator" />
             </div>
           </div>
         )}
@@ -88,12 +98,13 @@ const Navbar = () => {
               className="github-repo-link"
             >
               <img src={github} alt="" className="h-8 w-auto" />
-              <h1 className="navbar-h1">GitHube Repo</h1>
+              <h1 className="navbar-h1">GitHub Repo</h1>
             </a>
           </div>
         )}
       </nav>
-      <div className="h-20"></div>
+      <div className="bg-slate-800" style={{ height: "64px" }}></div>
+      <hr className="h-px bg-gray-200 border-0 dark:bg-slate-700 w-full block fixed" />
     </>
   );
 };
