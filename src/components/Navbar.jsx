@@ -77,8 +77,8 @@ const Navbar = () => {
                 />
                 <span>{user?.username}</span>
               </button>
-              <a className="user-in">Create Blogs</a>
-              <button className="user-in">Your blogs</button>
+              <a href="/create" className="user-in flex justify-center items-center">Create Blogs</a>
+              <a className="user-in flex justify-center items-center">Your blogs</a>
               <hr className="mt-1 navbar-separator" />
               <button className="logout">Log out</button>
               <hr className="mt-1 navbar-separator" />

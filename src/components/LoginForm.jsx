@@ -12,8 +12,8 @@ const LoginForm = () => {
         ref={status_ref}
         className="has-text-white has-text-centered p-2 is-hidden"
       ></h1>
-      <div className="field">
-        <label className="label">Username</label>
+      <div>
+        <label>Username</label>
         <div className="control has-icons-left has-icons-right">
           <input
             className="input"

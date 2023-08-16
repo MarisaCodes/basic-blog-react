@@ -20,7 +20,7 @@ nav {
   @apply items-center gap-3 p-4 hover:bg-gray-800 transition-colors cursor-pointer justify-center hidden md:flex w-fit ml-auto;
 }
 .user-in {
-  @apply hover:bg-gray-800 bg-opacity-50 md:bg-opacity-100 transition-colors py-1 md:py-0 md:px-4 rounded-lg md:rounded-none h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 md:w-fit text-center;
+  @apply hover:bg-gray-800 bg-opacity-50 md:bg-opacity-100 transition-colors py-1 md:py-0 md:px-4 rounded-lg md:rounded-none h-fit md:h-full text-slate-300 w-9/12 sm:w-6/12 md:w-fit text-center cursor-pointer;
 }
 .user-in-group {
   @apply flex flex-col pt-2 md:pt-0 md:px-3 md:h-full md:flex-row gap-3 w-full md:w-fit items-center ml-auto;

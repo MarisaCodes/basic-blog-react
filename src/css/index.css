@@ -3,8 +3,36 @@
 @tailwind utilities;
 
 h1 {
-  @apply text-4xl text-black font-semibold;
+  @apply text-6xl font-bold;
+}
+h2 {
+  @apply text-5xl;
+}
+h3 {
+  @apply text-4xl;
+}
+h4 {
+  @apply text-3xl;
+}
+h5 {
+  @apply text-2xl;
+}
+h6 {
+  @apply text-xl;
 }
 hr {
-  @apply h-px bg-gray-200 border-0 dark:bg-red-700 w-full block md:hidden;
+  @apply h-px border-0 bg-gray-600 w-full block md:hidden;
+}
+.hljs {
+  @apply bg-gray-800 overflow-auto text-blue-400;
+}
+pre,
+code:not(.hljs code) {
+  @apply border-2 rounded-md border-gray-700 p-1 my-5;
+}
+code:not(.hljs code) {
+  @apply max-w-full inline-block p-1 text-blue-400 mt-1;
+}
+.preview img, .md-guide img {
+  @apply mx-auto rounded-md w-11/12 sm:w-10/12 md:w-7/12 object-scale-down h-fit aspect-video mb-4 mt-5;
 }
