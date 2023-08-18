@@ -1,4 +1,4 @@
-import { defer, redirect } from "react-router-dom";
+import { defer } from "react-router-dom";
 
 export const homeLoader = async () => {
   const data = fetch("http://localhost:3050/api/", {

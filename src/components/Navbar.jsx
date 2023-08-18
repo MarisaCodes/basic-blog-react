@@ -1,8 +1,9 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import { DataContext } from "../contexts/DataContext";
 import "../css/navbar.css";
 import blog_icon from "../assets/favicon.svg";
 import github from "../assets/github.svg";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const { user } = useContext(DataContext);
   const menuRef = useRef(null);
@@ -24,10 +25,10 @@ const Navbar = () => {
       <nav ref={navRef}>
         {/* first nav group nav logo etc */}
         <div className="flex items-center justify-around gap-10">
-          <a href="/" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             <img src={blog_icon} alt="" className="h-8 w-auto" />
             <h1 className="navbar-h1">Basic Blog</h1>
-          </a>
+          </Link>
 
           {/* burger for mobile */}
           <div className="burger" ref={burger_ref} onClick={handle_menu}>
@@ -46,12 +47,12 @@ const Navbar = () => {
           >
             <div className="sign-login-btn-group">
               <hr className="mt-0 navbar-separator" />
-              <a href="/signup" className="signup-login">
+              <Link to="/signup" className="signup-login">
                 Signup
-              </a>
-              <a href="/login" className="signup-login">
+              </Link>
+              <Link to="/login" className="signup-login">
                 Login
-              </a>
+              </Link>
               <hr className="mt-1 navbar-separator" />
             </div>
           </div>
@@ -72,12 +73,12 @@ const Navbar = () => {
                 />
                 <span>{user?.username}</span>
               </button>
-              <a
-                href="/create"
+              <Link
+                to="/create"
                 className="user-in flex justify-center items-center"
               >
                 Create Blogs
-              </a>
+              </Link>
               <a className="user-in flex justify-center items-center">
                 Your blogs
               </a>

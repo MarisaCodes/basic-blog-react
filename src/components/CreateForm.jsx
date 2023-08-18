@@ -3,6 +3,7 @@ import { useTabsReducer } from "../hooks/useTabsReducer";
 import { useState } from "react";
 import { useMdguide } from "../hooks/useMdguide";
 import { usePreview } from "../hooks/usePreview";
+import { Form } from "react-router-dom";
 
 const CreateForm = () => {
   const [tabsState, tabsDispatch] = useTabsReducer();
@@ -11,7 +12,11 @@ const CreateForm = () => {
   const preview = usePreview(blog);
   const { guide, guideTitle } = useMdguide();
   return (
-    <form className="bg-gray-900 text-slate-300 w-full">
+    <Form
+      className="bg-gray-900 text-slate-300 w-full"
+      method="post"
+      action="/create"
+    >
       <div className="flex flex-col w-full sm:w-11/12 md:w-9/12 mx-auto pt-10 pb-14">
         <label htmlFor="title" className="px-2 my-3">
           Title
@@ -124,7 +129,7 @@ const CreateForm = () => {
           value="Submit"
         />
       </div>
-    </form>
+    </Form>
   );
 };
 

@@ -33,6 +33,7 @@ const SignupForm = () => {
           type="text"
           name="username"
           id="username"
+          placeholder="Username"
           className="border-gray-600 bg-gray-700 border outline-none focus:outline-blue-700 outline-offset-0 p-1.5 rounded-md mb-10"
           value={state.username}
           onInput={(e) =>
@@ -47,6 +48,7 @@ const SignupForm = () => {
           type="password"
           name="password"
           id="password"
+          placeholder="Password"
           value={state.password}
           onInput={(e) =>
             dispatch({ payload: { password: e.target.value.trim() } })
