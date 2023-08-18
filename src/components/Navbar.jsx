@@ -4,18 +4,13 @@ import "../css/navbar.css";
 import blog_icon from "../assets/favicon.svg";
 import github from "../assets/github.svg";
 const Navbar = () => {
-  const data = useContext(DataContext);
-  const user = data.data.user;
+  const { user } = useContext(DataContext);
   const menuRef = useRef(null);
   const burger_ref = useRef(null);
   const navRef = useRef(null);
 
   const handle_menu = () => {
-    if (menuRef.current?.classList.contains("hidden")) {
-      menuRef.current?.classList.remove("hidden");
-    } else {
-      menuRef.current?.classList.add("hidden");
-    }
+    menuRef.current?.classList.toggle("hidden");
   };
   document.addEventListener("click", (e) => {
     if (
@@ -36,9 +31,9 @@ const Navbar = () => {
 
           {/* burger for mobile */}
           <div className="burger" ref={burger_ref} onClick={handle_menu}>
-            <div className="bg-slate-300 h-0.5 w-7"></div>
-            <div className="bg-slate-300 h-0.5 w-7"></div>
-            <div className="bg-slate-300 h-0.5 w-7"></div>
+            <div className="bg-slate-400 h-0.5 w-7 rounded-lg"></div>
+            <div className="bg-slate-400 h-0.5 w-7 rounded-lg"></div>
+            <div className="bg-slate-400 h-0.5 w-7 rounded-lg"></div>
           </div>
         </div>
 
@@ -77,8 +72,15 @@ const Navbar = () => {
                 />
                 <span>{user?.username}</span>
               </button>
-              <a href="/create" className="user-in flex justify-center items-center">Create Blogs</a>
-              <a className="user-in flex justify-center items-center">Your blogs</a>
+              <a
+                href="/create"
+                className="user-in flex justify-center items-center"
+              >
+                Create Blogs
+              </a>
+              <a className="user-in flex justify-center items-center">
+                Your blogs
+              </a>
               <hr className="mt-1 navbar-separator" />
               <button className="logout">Log out</button>
               <hr className="mt-1 navbar-separator" />

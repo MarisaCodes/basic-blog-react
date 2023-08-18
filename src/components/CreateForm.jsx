@@ -3,7 +3,6 @@ import { useTabsReducer } from "../hooks/useTabsReducer";
 import { useState } from "react";
 import { useMdguide } from "../hooks/useMdguide";
 import { usePreview } from "../hooks/usePreview";
-import validator from "validator";
 
 const CreateForm = () => {
   const [tabsState, tabsDispatch] = useTabsReducer();
@@ -32,8 +31,10 @@ const CreateForm = () => {
           <div className="flex py-4 px-2 gap-7 flex-grow mx-auto md:mx-0 md:mr-auto w-full overflow-x-auto">
             <button
               className={
-                "border-b-2 border-gray-500 p-4" +
-                (tabsState.write ? " text-blue-700 border-blue-700" : "")
+                "border-b-2 p-4" +
+                (tabsState.write
+                  ? " text-blue-700 border-blue-700"
+                  : " border-gray-500")
               }
               onClick={(e) => {
                 e.preventDefault();
@@ -44,8 +45,10 @@ const CreateForm = () => {
             </button>
             <button
               className={
-                "border-b-2 border-gray-500 p-4" +
-                (tabsState.preview ? " text-blue-700 border-blue-700" : "")
+                "border-b-2 p-4" +
+                (tabsState.preview
+                  ? " text-blue-700 border-blue-700"
+                  : " border-gray-500")
               }
               onClick={(e) => {
                 e.preventDefault();
@@ -56,8 +59,10 @@ const CreateForm = () => {
             </button>
             <button
               className={
-                "border-b-2 border-gray-500 p-4 w-fit whitespace-nowrap" +
-                (tabsState.mdGuide ? " text-blue-700 border-blue-700" : "")
+                "border-b-2 p-4 w-fit whitespace-nowrap" +
+                (tabsState.mdGuide
+                  ? " text-blue-700 border-blue-700"
+                  : " border-gray-500")
               }
               onClick={(e) => {
                 e.preventDefault();

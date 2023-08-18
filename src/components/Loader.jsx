@@ -1,10 +1,33 @@
+import Footer from "./Footer";
+
 const Loader = () => {
   return (
-    <div className="container is-fluid mt-6">
-      <div className="has-background-link notification is-flex is-align-items-center has-text-light is-justify-content-center p-6">
-        <h1 className="is-size-4">Loading...</h1>
-        <button className="button is-loading is-large is-link"></button>
+    <div className="bg-gray-900 text-slate-300 w-full h-screen">
+      <div className="flex gap-10 justify-center items-center h-5/6">
+        <span className="text-4xl">Loading</span>
+
+        <svg
+          className="animate-spin h-10 w-fit text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+          ></circle>
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
       </div>
+      <Footer />
     </div>
   );
 };

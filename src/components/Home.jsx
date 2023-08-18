@@ -1,12 +1,11 @@
-import { useGetBlogs } from "../hooks/useGetBlogs";
+import { useContext } from "react";
 import "../css/blogs.css";
 import Blogs from "./Blogs";
 import Wrapper from "./Wrapper";
-
+import { DataContext } from "../contexts/DataContext";
 const Home = () => {
-  const data = useGetBlogs();
   return (
-    <Wrapper data={data}>
+    <Wrapper>
       <Blogs />
     </Wrapper>
   );

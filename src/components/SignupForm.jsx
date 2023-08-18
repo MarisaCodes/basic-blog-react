@@ -1,23 +1,8 @@
-import { useState, useRef, useContext } from "react";
-
-// import { username_input } from "../handlers/username_input";
-// import { password_input } from "../handlers/password_input";
-import { useDisabled } from "../hooks/useDisabled";
-// import { post_signup } from "../handlers/post_signup";
+import { useContext } from "react";
 import { DataContext } from "../contexts/DataContext";
-import { useUsernameReducer } from "../hooks/useUsernameReducer";
-import { usePasswordReducer } from "../hooks/usePasswordReducer";
 
 const SignupForm = () => {
-  const data = useContext(DataContext);
-  // const users = data.data?.users;
-  // const [uState, uDispatch] = useUsernameReducer();
-  // const [pState, pDispatch] = usePasswordReducer();
-  // const [pfp, setPfp] = useState(null);
-
-  // const submit_ref = useRef(null);
-  // const error_ref = useRef(null);
-  // useDisabled(submit_ref, pState, uState);
+  const { users } = useContext(DataContext);
 
   return (
     <form className="bg-gray-900 text-slate-300 w-full">
@@ -51,8 +36,28 @@ const SignupForm = () => {
           name="pfp"
           id="pfp"
         />
-        <button className="bg-blue-700 hover:bg-blue-800 p-2 px-5 rounded-lg w-fit mt-10 mx-auto sm:ml-0 disabled:bg-gray-700 disabled:text-gray-500 disabled:cursor-not-allowed">
-          Submit
+        <button className="w-fit mt-10 flex gap-2 items-center p-2 px-4 bg-blue-700 rounded-md cursor-pointer hover:bg-blue-800 disabled:bg-blue-400 disabled:cursor-not-allowed">
+          <svg
+            className="animate-spin hidden h-5 w-fit text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Signup
         </button>
       </div>
     </form>
