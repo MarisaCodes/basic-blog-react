@@ -26,7 +26,7 @@ const LoginForm = () => {
             value={loginState.username}
             onInput={(e) =>
               loginDispatch({
-                payload: { username: e.target.value },
+                payload: { username: e.target.value.trim() },
               })
             }
             className="p-1 py-2 bg-gray-700 border border-gray-600 rounded-md outline-none outline-offset-0 focus:outline-blue-700"
@@ -46,7 +46,7 @@ const LoginForm = () => {
             placeholder="Password here..."
             onInput={(e) =>
               loginDispatch({
-                payload: { password: e.target.value },
+                payload: { password: e.target.value.trim() },
               })
             }
             value={loginState.password}

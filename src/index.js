@@ -13,7 +13,7 @@ import {
   signupLoader,
 } from "./loaders/loaders";
 import Error from "./components/Error";
-import { loginAction } from "./actions/actions";
+import { loginAction, signupAction } from "./actions/actions";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +25,7 @@ const router = createBrowserRouter([
     path: "/signup/",
     element: <Signup />,
     loader: signupLoader,
+    action:signupAction,
     errorElement: <Error />,
   },
   {
