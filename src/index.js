@@ -13,7 +13,7 @@ import {
   signupLoader,
 } from "./loaders/loaders";
 import Error from "./components/Error";
-import { loginAction, signupAction } from "./actions/actions";
+import { createAction, loginAction, signupAction } from "./actions/actions";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     path: "/signup/",
     element: <Signup />,
     loader: signupLoader,
-    action:signupAction,
+    action: signupAction,
     errorElement: <Error />,
   },
   {
@@ -39,6 +39,7 @@ const router = createBrowserRouter([
     path: "/create/",
     element: <Create />,
     loader: createLoader,
+    action: createAction,
     errorElement: <Error />,
   },
 ]);

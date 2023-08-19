@@ -56,3 +56,26 @@ export const signupAction = async ({ request }) => {
       return new Error(err?.message || err);
     });
 };
+
+export const createAction = async ({ request }) => {
+  let body = await request.json();
+  body = JSON.stringify(body);
+  return await fetch("http://localhost:3050/api/create", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+    credentials: "include",
+  })
+    .then((res) => {
+      if (res.ok) {
+        return redirect("/");
+      } else {
+        return new Error(res.status + " " + res.statusText);
+      }
+    })
+    .catch((err) => {
+      return new Error(err?.message || err);
+    });
+};

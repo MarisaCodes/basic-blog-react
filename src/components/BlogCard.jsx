@@ -1,3 +1,5 @@
+import { md } from "../hooks/useMdguide";
+
 const BlogCard = ({ blog }) => {
   return (
     <div className="card flex flex-col gap-3 w-full bg-gray-800 border border-gray-700 sm:rounded-lg p-2 border-r-0 border-l-0 sm:border-r sm:border-l">
@@ -40,14 +42,17 @@ const BlogCard = ({ blog }) => {
                 {blog.about}
               </div>
             )}
-            <div className="content pt-4 px-4">
-              {blog.content}
-            </div>
+            <div
+              className="content pt-4 px-4"
+              dangerouslySetInnerHTML={{ __html: md.render(blog.content) }}
+            ></div>
           </div>
         </div>
       </div>
       <footer className="flex pr-4">
-        <a className="ml-auto cursor-pointer text-blue-600 font-semibold">Read more &#8594;</a>
+        <a className="ml-auto cursor-pointer text-blue-600 font-semibold">
+          Read more &#8594;
+        </a>
       </footer>
     </div>
   );

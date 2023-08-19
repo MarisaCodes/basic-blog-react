@@ -1,22 +1,35 @@
 import md_icon from "../assets/md_icon.svg";
 import { useTabsReducer } from "../hooks/useTabsReducer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMdguide } from "../hooks/useMdguide";
 import { usePreview } from "../hooks/usePreview";
-import { Form } from "react-router-dom";
+import { Form, useActionData, useSubmit } from "react-router-dom";
+import { useCreateReducer } from "../hooks/useCreateReducer";
 
 const CreateForm = () => {
   const [tabsState, tabsDispatch] = useTabsReducer();
   const [title, setTitle] = useState("");
   const [blog, setBlog] = useState("");
+  const [btnState, btnDispatch] = useCreateReducer();
+  const error = useActionData();
+  useEffect(() => {
+    if (error?.message || error)
+      btnDispatch({ payload: { disabled: false, loading: false } });
+    if (!blog?.trim() || !title?.trim())
+      btnDispatch({ payload: { disabled: true, loading: false } });
+    else btnDispatch({ payload: { disabled: false, loading: false } });
+  }, [blog, title, error]);
+  const submit = useSubmit();
   const preview = usePreview(blog);
   const { guide, guideTitle } = useMdguide();
+
   return (
-    <Form
-      className="bg-gray-900 text-slate-300 w-full"
-      method="post"
-      action="/create"
-    >
+    <Form className="bg-gray-900 text-slate-300 w-full">
+      {(error?.message || error) && (
+        <div className="text-red-400 w-full text-center pt-7">
+          {error?.message}
+        </div>
+      )}
       <div className="flex flex-col w-full sm:w-11/12 md:w-9/12 mx-auto pt-10 pb-14">
         <label htmlFor="title" className="px-2 my-3">
           Title
@@ -93,12 +106,12 @@ const CreateForm = () => {
             <textarea
               className="w-full bg-gray-700 border border-gray-600 rounded-md focus:outline-blue-700 outline-none outline-offset-0 p-3"
               rows="5"
-              name="blog"
-              id="blog"
+              name="content"
+              id="content"
               placeholder="Blog post goes here..."
-              value={blog}
               onInput={(e) => setBlog(e.target.value)}
-            ></textarea>
+              value={blog}
+            />
           </div>
         )}
         {tabsState.preview && (
@@ -123,11 +136,44 @@ const CreateForm = () => {
             ></div>
           </div>
         )}
-        <input
-          className="flex-grow mr-auto bg-blue-700 hover:bg-blue-800 p-2.5 px-4 rounded-lg mt-4 cursor-pointer ml-2 sm:ml-0"
+        <button
+          className="w-fit  flex gap-2 items-center mt-7 p-2 px-4 bg-blue-700 rounded-md cursor-pointer hover:bg-blue-800 disabled:bg-blue-400 disabled:cursor-not-allowed"
+          disabled={btnState.disabled}
           type="submit"
-          value="Submit"
-        />
+          onClick={() => {
+            btnDispatch({ payload: { disabled: true, loading: true } });
+            const data = { title, content: blog };
+            submit(data, {
+              method: "post",
+              action: "/create",
+              encType: "application/json",
+            });
+          }}
+        >
+          <svg
+            className={`animate-spin h-5 w-fit text-white${
+              btnState.loading ? "" : " hidden"
+            }`}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Submit
+        </button>
       </div>
     </Form>
   );
