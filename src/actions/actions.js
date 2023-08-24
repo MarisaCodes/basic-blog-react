@@ -1,5 +1,22 @@
 import { redirect } from "react-router-dom";
 
+export const homeAction = async ({ request }) => {
+  const formData = await request.formData();
+  const intent = formData.get("intent");
+  if (intent === "logout") {
+    try {
+      const res = await fetch("http://localhost:3050/api/logout", {
+        method: "post",
+        credentials: "include",
+      });
+      if (res.ok) return null;
+      else throw Error(res.status + " " + res.statusText);
+    } catch (err) {
+      return new Error(err?.message || err);
+    }
+  }
+};
+
 export const loginAction = async ({ request }) => {
   const formData = await request.formData();
   const username = formData.get("username");

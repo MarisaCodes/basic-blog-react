@@ -3,7 +3,7 @@ import { DataContext } from "../contexts/DataContext";
 import "../css/navbar.css";
 import blog_icon from "../assets/favicon.svg";
 import github from "../assets/github.svg";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 const Navbar = () => {
   const { user } = useContext(DataContext);
   const menuRef = useRef(null);
@@ -65,14 +65,16 @@ const Navbar = () => {
           >
             <hr className="mt-0 navbar-separator" />
             <div className="user-in-group">
-              <button className="user-in flex justify-center items-center gap-2">
+              <Link className="user-in flex justify-center items-center gap-2"
+              to="/user"
+              >
                 <img
                   src={`data:${user?.pfp_mime};base64,${user?.pfp}`}
                   className="rounded-full h-10 aspect-square object-cover"
                   alt=""
                 />
                 <span>{user?.username}</span>
-              </button>
+              </Link>
               <Link
                 to="/create"
                 className="user-in flex justify-center items-center"
@@ -83,7 +85,9 @@ const Navbar = () => {
                 Your blogs
               </a>
               <hr className="mt-1 navbar-separator" />
-              <button className="logout">Log out</button>
+              <Form action="/" className="w-9/12 sm:w-6/12 md:w-fit" method="post">
+                <button className="logout w-full" name="intent" value="logout">Log out</button>
+              </Form>
               <hr className="mt-1 navbar-separator" />
             </div>
           </div>

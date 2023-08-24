@@ -9,7 +9,6 @@ import Error from "./Error";
 const Wrapper = ({ children }) => {
   const data = useLoaderData();
   const navigate = useNavigate();
-
   data.data?.then((data) => {
     if (data === 302) {
       navigate("/");
